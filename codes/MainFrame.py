@@ -14,7 +14,9 @@ import SerialListenerThread
 import PickleFileIO
 import binascii
 import time
-import win32api
+
+if os.name == "nt":
+    import win32api
 import string
 
 
@@ -32,10 +34,11 @@ class MainFrame(MainFrameBase.MainFrameBase):
         '''
         MainFrameBase.MainFrameBase.__init__(self,None)
         
-        exeName = win32api.GetModuleFileName(win32api.GetModuleHandle(None))
-        #print ('exeName:[%s]'%exeName)
+        if os.name == "nt":
+            exeName = win32api.GetModuleFileName(win32api.GetModuleHandle(None))
+            #print ('exeName:[%s]'%exeName)
         if exeName.find('python.exe') == -1:
-            self.SetIcon(wx.Icon(exeName+';0', wx.BITMAP_TYPE_ICO))
+                self.SetIcon(wx.Icon(exeName+';0', wx.BITMAP_TYPE_ICO))
         else:
             self.SetIcon(wx.Icon(r'sa.ico', wx.BITMAP_TYPE_ICO))
     
