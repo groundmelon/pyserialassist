@@ -1,0 +1,5 @@
+*.pyc
+.settings
+serialAssist/build/
+serialAssist/dist/
+serialAssist/exe/
