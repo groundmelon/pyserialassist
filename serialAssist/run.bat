@@ -1,0 +1,2 @@
+python MainFrame.py
+pause
