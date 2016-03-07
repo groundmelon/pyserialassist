@@ -79,12 +79,12 @@ class MainFrame(MainFrameBase.MainFrameBase):
         devinfo = self.dev.getSupportedInfo()
         print devinfo
 
-        btl = sorted(devinfo['baudrate'].keys(), lambda a,b:cmp(int(a),int(b)))
+        btl = sorted(devinfo['baudrate'], lambda a,b:cmp(int(a),int(b)))
         self.m_choice_com.SetItems([each[0] for each in lstprt.comports()])    
-        self.m_choice_baudrate.SetItems(btl)
-        self.m_choice_databits.SetItems(devinfo['bytesize'].keys())
-        self.m_choice_parity.SetItems(devinfo['parity'].keys())
-        self.m_choice_stopbits.SetItems(devinfo['stopbit'].keys())
+        self.m_choice_baudrate.SetItems([str(x) for x in devinfo['baudrate']])
+        self.m_choice_databits.SetItems([str(x) for x in devinfo['bytesize']])
+        self.m_choice_parity.SetItems([str(x) for x in devinfo['parity']])
+        self.m_choice_stopbits.SetItems([str(x) for x in devinfo['stopbit']])
                         
         
         self.m_choice_com.SetSelection(0)
@@ -216,15 +216,18 @@ class MainFrame(MainFrameBase.MainFrameBase):
         
         
     def applySettings(self):
-        self.dev.ser.setBaudrate(self.sSettings['baudrate'])
-        self.dev.ser.setByteSize(self.sSettings['bytesize'])
-        self.dev.ser.setParity(self.sSettings['parity'])
-        self.dev.ser.setStopbits(self.sSettings['stopbits'])
-        self.dev.ser.setXonXoff(self.sSettings['xonxoff'])
-        self.dev.ser.setRtsCts(self.sSettings['rtscts'])
-        self.dev.ser.setPort(self.sSettings['port'])
+        self.dev.ser.apply_settings(self.sSettings)
+        self.dev.ser.port = self.sSettings['port']
+        # self.dev.ser.setBaudrate(self.sSettings['baudrate'])
+        # self.dev.ser.setByteSize(self.sSettings['bytesize'])
+        # self.dev.ser.setParity(self.sSettings['parity'])
+        # self.dev.ser.setStopbits(self.sSettings['stopbits'])
+        # self.dev.ser.setXonXoff(self.sSettings['xonxoff'])
+        # self.dev.ser.setRtsCts(self.sSettings['rtscts'])
+        # self.dev.ser.setPort(self.sSettings['port'])
         
         self.updateSettingUI()
+        print(self.dev.ser.get_settings());
         
     
     def setByChoice(self):

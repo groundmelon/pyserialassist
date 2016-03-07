@@ -19,10 +19,10 @@ class MySerial(object):
       
     def getSupportedInfo(self):
         info = {}
-        info['baudrate'] = dict(self.ser.getSupportedBaudrates())
-        info['bytesize'] = dict(self.ser.getSupportedByteSizes())
-        info['parity'] = dict(self.ser.getSupportedParities())
-        info['stopbit'] = dict(self.ser.getSupportedStopbits())
+        info['baudrate'] = self.ser.BAUDRATES
+        info['bytesize'] = self.ser.BYTESIZES
+        info['parity'] = self.ser.PARITIES
+        info['stopbit'] = self.ser.STOPBITS
         return info
     
     def sendData(self,data):
